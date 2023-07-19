@@ -10,6 +10,8 @@ func respondWithError(w http.ResponseWriter, code int, msg string){
 	if code > 499 {
 		log.Println("Responding with 5xx error: ", msg)
 	}
+
+	//encoding go struct to json ?
 	type errResponse struct {
 		Error string `json:"error"`
 	}
