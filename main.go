@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	database "command-line-arguments/Users/rramadoss/Documents/Learning/golang/projects/blog-aggregator/internal/database/db.go"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq" // underscore means we are not calling it directly
+	"blogaggregator/internal/database" //blogaggregator is coming from go.mod
 )
 
 type apiConfig struct {
@@ -57,6 +57,8 @@ func main() {
 	router.Get("/healthz", handlerReadiness)
 	router.Get("/err", handlerErr)
 	router.Post("/users", apiCfg.handlerCreateUser)
+	router.Get("/users", apiCfg.middlewareAuth(apiCfg.handlerGetUser))
+	router.Post("/feeds", apiCfg.middlewareAuth(apiCfg.handlerCreateFeed))
 	router.Mount("/v1", router)
 
 	srv := &http.Server{

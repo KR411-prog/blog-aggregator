@@ -1,4 +1,5 @@
 # blog-aggregator
+RSS feed - shows the blog name with url of the blog's RSS index.xml page where it has links to each post in the blog with details about it.
 
 go mod vendor --> copies the code into vendor folder
 
